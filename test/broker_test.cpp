@@ -1,32 +1,36 @@
-#include <cassert>
+#include <gtest/gtest.h>
 
 #include "broker/broker.hpp"
 
-int main() {
+TEST(BrokerTest, CreatesAndFindsTopics) {
     hyper::Broker broker;
 
-    assert(!broker.create_topic(""));
-    assert(broker.topic("events") == nullptr);
+    EXPECT_FALSE(broker.create_topic(""));
+    EXPECT_EQ(broker.topic("events"), nullptr);
 
-    assert(broker.create_topic("events", 3));
-    assert(!broker.create_topic("events", 5));
+    EXPECT_TRUE(broker.create_topic("events", 3));
+    EXPECT_FALSE(broker.create_topic("events", 5));
 
     auto* topic = broker.topic("events");
-    assert(topic != nullptr);
-    assert(topic->name() == "events");
-    assert(topic->partition_count() == 3);
+    ASSERT_NE(topic, nullptr);
+    EXPECT_EQ(topic->name(), "events");
+    EXPECT_EQ(topic->partition_count(), 3);
 
-    assert(broker.topic("missing") == nullptr);
+    EXPECT_EQ(broker.topic("missing"), nullptr);
 
     const hyper::Broker& const_broker = broker;
     const auto* const_topic = const_broker.topic("events");
-    assert(const_topic != nullptr);
-    assert(const_topic->partition_count() == 3);
-    assert(const_broker.topic("missing") == nullptr);
+    ASSERT_NE(const_topic, nullptr);
+    EXPECT_EQ(const_topic->partition_count(), 3);
+    EXPECT_EQ(const_broker.topic("missing"), nullptr);
+}
 
-    assert(broker.create_topic("default-events"));
-    assert(broker.topic("default-events")->partition_count()
-           == hyper::defaultPartitionSize);
+TEST(BrokerTest, UsesTopicDefaultPartitionCount) {
+    hyper::Broker broker;
 
-    return 0;
+    ASSERT_TRUE(broker.create_topic("default-events"));
+
+    const auto* topic = broker.topic("default-events");
+    ASSERT_NE(topic, nullptr);
+    EXPECT_EQ(topic->partition_count(), hyper::defaultPartitionSize);
 }

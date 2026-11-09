@@ -1,41 +1,18 @@
-add_executable(hypermq_partition_tests
+find_package(GTest CONFIG REQUIRED)
+
+include(GoogleTest)
+
+add_executable(hypermq_tests
     ${CMAKE_CURRENT_SOURCE_DIR}/partition_test.cpp
-)
-
-target_link_libraries(hypermq_partition_tests
-    PRIVATE
-        HyperMQ::HyperMQ
-)
-
-add_test(
-    NAME hypermq_partition_tests
-    COMMAND hypermq_partition_tests
-)
-
-add_executable(hypermq_topic_tests
     ${CMAKE_CURRENT_SOURCE_DIR}/topic_test.cpp
-)
-
-target_link_libraries(hypermq_topic_tests
-    PRIVATE
-        HyperMQ::HyperMQ
-)
-
-add_test(
-    NAME hypermq_topic_tests
-    COMMAND hypermq_topic_tests
-)
-
-add_executable(hypermq_broker_tests
     ${CMAKE_CURRENT_SOURCE_DIR}/broker_test.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/consumer_group_test.cpp
 )
 
-target_link_libraries(hypermq_broker_tests
+target_link_libraries(hypermq_tests
     PRIVATE
         HyperMQ::HyperMQ
+        GTest::gtest_main
 )
 
-add_test(
-    NAME hypermq_broker_tests
-    COMMAND hypermq_broker_tests
-)
+gtest_discover_tests(hypermq_tests)
