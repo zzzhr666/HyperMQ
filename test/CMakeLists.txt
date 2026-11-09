@@ -11,3 +11,17 @@ add_test(
     NAME hypermq_partition_tests
     COMMAND hypermq_partition_tests
 )
+
+add_executable(hypermq_topic_tests
+    ${CMAKE_CURRENT_SOURCE_DIR}/topic_test.cpp
+)
+
+target_link_libraries(hypermq_topic_tests
+    PRIVATE
+        HyperMQ::HyperMQ
+)
+
+add_test(
+    NAME hypermq_topic_tests
+    COMMAND hypermq_topic_tests
+)
