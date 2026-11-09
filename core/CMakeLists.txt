@@ -4,12 +4,6 @@ set(HYPERMQ_CORE_SOURCES
     ${CMAKE_CURRENT_SOURCE_DIR}/topic/topic.cpp
 )
 
-set(HYPERMQ_CORE_HEADERS
-    ${CMAKE_CURRENT_SOURCE_DIR}/broker/broker.hpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/message/message.hpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/partition/partition.hpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/topic/topic.hpp
-)
 
 add_library(hyper_mq STATIC
     ${HYPERMQ_CORE_SOURCES}
