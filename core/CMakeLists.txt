@@ -1,25 +1,26 @@
 set(HYPERMQ_CORE_SOURCES
-    ${CMAKE_CURRENT_SOURCE_DIR}/broker/broker.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/partition/partition.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/topic/topic.cpp
+        broker/broker.cpp
+        partition/partition.cpp
+        topic/topic.cpp
+        group/consumer_group.cpp
+        group/consumer_group.hpp
 )
 
 
 add_library(hyper_mq STATIC
-    ${HYPERMQ_CORE_SOURCES}
-    ${HYPERMQ_CORE_HEADERS}
+        ${HYPERMQ_CORE_SOURCES}
 )
 
 set_target_properties(hyper_mq PROPERTIES
-    POSITION_INDEPENDENT_CODE ON
+        POSITION_INDEPENDENT_CODE ON
 )
 
 add_library(HyperMQ::HyperMQ ALIAS hyper_mq)
 
 target_compile_features(hyper_mq PUBLIC
-    cxx_std_20
+        cxx_std_20
 )
 
 target_include_directories(hyper_mq PUBLIC
-    ${CMAKE_CURRENT_SOURCE_DIR}
+        ${CMAKE_CURRENT_SOURCE_DIR}
 )
