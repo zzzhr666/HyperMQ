@@ -3,10 +3,11 @@ find_package(GTest CONFIG REQUIRED)
 include(GoogleTest)
 
 add_executable(hypermq_tests
-    ${CMAKE_CURRENT_SOURCE_DIR}/partition_test.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/topic_test.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/broker_test.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/consumer_group_test.cpp
+    partition_test.cpp
+    topic_test.cpp
+    broker_test.cpp
+    consumer_group_test.cpp
+    consumer_test.cpp
 )
 
 target_link_libraries(hypermq_tests

@@ -3,7 +3,7 @@ set(HYPERMQ_CORE_SOURCES
         partition/partition.cpp
         topic/topic.cpp
         group/consumer_group.cpp
-        group/consumer_group.hpp
+        consumer/consumer.cpp
 )
 
 
